@@ -35,11 +35,14 @@ fi
 
 rm -f "${ARCHIVE}"
 
+echo "Downloading ${RELEASE_URL}"
+
 curl -sSL "${RELEASE_URL}" > "${ARCHIVE}"
 
-unzip "${ARCHIVE}" -d "${RELEASES_DIRECTORY}/extract-${TAG}"
+unzip -q "${ARCHIVE}" -d "${RELEASES_DIRECTORY}/extract-${TAG}"
 
 mv "${RELEASES_DIRECTORY}/extract-${TAG}/ProfitTrailer" "${RELEASES_DIRECTORY}/${TAG}"
 rmdir "${RELEASES_DIRECTORY}/extract-${TAG}"
+rm "${ARCHIVE}"
 
 echo "Done! ProfitTrailer ${TAG} has been downloaded to ${RELEASES_DIRECTORY}/${TAG}"
