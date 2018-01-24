@@ -34,7 +34,10 @@ if [ ! -f "${RELEASES_DIRECTORY}/${VERSION}/ProfitTrailer.jar" ]; then
   exit 1
 fi
 
-if [ ! -a "${TARGET}/ProfitTrailer.jar" ]; then
+
+TARGET="$(dirname ${TARGET})/$(basename ${TARGET})"
+
+if [ ! -w "${TARGET}/ProfitTrailer.jar" ]; then
   echo "${TARGET} doesn't look like a ProfitTrailer directory."
   exit 1
 fi
