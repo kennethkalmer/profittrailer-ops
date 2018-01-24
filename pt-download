@@ -35,7 +35,7 @@ fi
 
 rm -f "${ARCHIVE}"
 
-curl -sSL "${RELEASE_URL}" "${ARCHIVE}"
+curl -sSL "${RELEASE_URL}" > "${ARCHIVE}"
 
 unzip "${ARCHIVE}" -d "${RELEASES_DIRECTORY}/extract-${TAG}"
 
