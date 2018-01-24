@@ -15,11 +15,13 @@ source "${TOOL_DIR}/config.sh"
 TARGET="${1}"
 
 if [ -z "${TARGET}" ]; then
-  echo "Please provide the path to the PT instance you want to update"
+  echo "Please provide the path to the PT instance you want to backup"
   echo
-  echo "Usage: pt-set-version VERSION PATH/TO/PT"
+  echo "Usage: pt-backup PATH/TO/PT"
   exit 1
 fi
+
+TARGET="$(dirname ${TARGET})/$(basename ${TARGET})"
 
 if [ ! -a "${TARGET}/ProfitTrailer.jar" ]; then
   echo "${TARGET} doesn't look like a ProfitTrailer directory."
