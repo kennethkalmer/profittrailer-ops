@@ -3,6 +3,9 @@
 # Prepare a basic profittrailer user layout
 #
 
+set -e
+[ ! -z "${DEBUG}" ] && set -x
+
 TOOL_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd  )
 export TOOL_DIR
 source "${TOOL_DIR}/config.sh"
