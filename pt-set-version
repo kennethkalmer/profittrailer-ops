@@ -1,0 +1,45 @@
+#!/bin/bash
+#
+# Switch the version number of a PT install
+#
+
+# Where our tooling is
+TOOL_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd  )
+export TOOL_DIR
+source "${TOOL_DIR}/config.sh"
+
+
+VERSION="${1}"
+TARGET="${2}"
+
+if [ -z "${VERSION}" ]; then
+  echo "Please specify a version"
+  echo
+  echo "Usage: pt-set-version VERSION PATH/TO/PT"
+  exit 1
+fi
+
+if [ -z "${TARGET}" ]; then
+  echo "Please provide the path to the PT instance you want to update"
+  echo
+  echo "Usage: pt-set-version VERSION PATH/TO/PT"
+  exit 1
+fi
+
+if [ ! -f "${RELEASES_DIRECTORY}/${VERSION}/ProfitTrailer.jar" ]; then
+  echo "Requested version doesn't exist, please use pt-download to download it"
+  exit 1
+fi
+
+if [ ! -a "${TARGET}/ProfitTrailer.jar" ]; then
+  echo "${TARGET} doesn't look like a ProfitTrailer directory."
+  exit 1
+fi
+
+echo "Please ensure you've stopped the running bot and made a backup of the directory"
+read -p "Press ENTER to set the continue >"
+
+rm -f "${TARGET}/ProfitTrailer.jar"
+ln -nfs "${RELEASES_DIRECTORY}/${VERSION}/ProfitTrailer.jar" "${TARGET}/ProfitTrailer.jar"
+
+echo "Done, you may now start the bot again"

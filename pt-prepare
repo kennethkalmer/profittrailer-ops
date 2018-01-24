@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Prepare a basic profittrailer user layout
+#
+
+TOOL_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd  )
+export TOOL_DIR
+source "${TOOL_DIR}/config.sh"
+
+
+# Create the directories
+mkdir -p "${BACKUP_DIRECTORY}" "${RELEASES_DIRECTORY}"
+

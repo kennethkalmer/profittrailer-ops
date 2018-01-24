@@ -1,0 +1,30 @@
+#!/bin/bash
+#
+# Dead simple backups
+#
+
+# Where our tooling is
+TOOL_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd  )
+export TOOL_DIR
+source "${TOOL_DIR}/config.sh"
+
+
+TARGET="${1}"
+
+if [ -z "${TARGET}" ]; then
+  echo "Please provide the path to the PT instance you want to update"
+  echo
+  echo "Usage: pt-set-version VERSION PATH/TO/PT"
+  exit 1
+fi
+
+if [ ! -a "${TARGET}/ProfitTrailer.jar" ]; then
+  echo "${TARGET} doesn't look like a ProfitTrailer directory."
+  exit 1
+fi
+
+DESTINATION=$(basename "${TARGET}")
+
+cp -a "${TARGET}" "${BACKUP_DIRECTORY}/${DESTINATION}-$(date +%Y%m%d%H%M%S)"
+
+echo "Done, "

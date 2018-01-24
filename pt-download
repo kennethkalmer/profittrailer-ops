@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# Download a new release to the releases directory
+#
+
+# Where our tooling is
+TOOL_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd  )
+export TOOL_DIR
+source "${TOOL_DIR}/config.sh"
+
+TAG=${1}
+
+if [ -z "${TAG}" ]; then
+
+  echo "Missing version number!"
+  echo
+  echo "Usage: pt-download v1.2.6.12"
+  echo
+  exit 1
+
+fi
+
+# Download the tag
+RELEASE_URL="https://github.com/taniman/profit-trailer/releases/download/${TAG}/ProfitTrailer.zip"
+OUTPUT="${RELEASES_DIRECTORY}/ProfitTrailer-${TAG}.zip"
+
+if [ -f "${OUTPUT}" ]; then
+  echo "This release has already been downloaded."
+  echo
+  read -p "Press ENTER to replace it with a new copy >"
+fi
+
+rm -f "${OUTPUT}"
+
+wget -q -o "${OUTPUT}" "${RELEASE_URL}"
+
+unzip "${OUTPUT}" -d "${RELEASES_DIRECTORY}/${TAG}"
+
+mv "${RELEASES_DIRECTORY}/${TAG}/ProfitTrailer" "${RELEASES_DIRECTORY}/${TAG}"
+
+echo "Done! ProfitTrailer ${TAG} has been downloaded to ${RELEASES_DIRECTORY}/${TAG}"
