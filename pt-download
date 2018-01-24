@@ -25,20 +25,21 @@ fi
 
 # Download the tag
 RELEASE_URL="https://github.com/taniman/profit-trailer/releases/download/${TAG}/ProfitTrailer.zip"
-OUTPUT="${RELEASES_DIRECTORY}/ProfitTrailer-${TAG}.zip"
+ARCHIVE="${RELEASES_DIRECTORY}/ProfitTrailer-${TAG}.zip"
 
-if [ -f "${OUTPUT}" ]; then
+if [ -f "${ARCHIVE}" ]; then
   echo "This release has already been downloaded."
   echo
   read -p "Press ENTER to replace it with a new copy >"
 fi
 
-rm -f "${OUTPUT}"
+rm -f "${ARCHIVE}"
 
-wget -q -o "${OUTPUT}" "${RELEASE_URL}"
+curl -sSL "${RELEASE_URL}" "${ARCHIVE}"
 
-unzip "${OUTPUT}" -d "${RELEASES_DIRECTORY}/${TAG}"
+unzip "${ARCHIVE}" -d "${RELEASES_DIRECTORY}/extract-${TAG}"
 
-mv "${RELEASES_DIRECTORY}/${TAG}/ProfitTrailer" "${RELEASES_DIRECTORY}/${TAG}"
+mv "${RELEASES_DIRECTORY}/extract-${TAG}/ProfitTrailer" "${RELEASES_DIRECTORY}/${TAG}"
+rmdir "${RELEASES_DIRECTORY}/extract-${TAG}"
 
 echo "Done! ProfitTrailer ${TAG} has been downloaded to ${RELEASES_DIRECTORY}/${TAG}"
