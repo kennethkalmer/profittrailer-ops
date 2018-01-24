@@ -23,7 +23,7 @@ fi
 
 TARGET="$(dirname ${TARGET})/$(basename ${TARGET})"
 
-if [ ! -a "${TARGET}/ProfitTrailer.jar" ]; then
+if [ ! -f "${TARGET}/ProfitTrailerData.json" ]; then
   echo "${TARGET} doesn't look like a ProfitTrailer directory."
   exit 1
 fi
@@ -32,4 +32,4 @@ DESTINATION=$(basename "${TARGET}")
 
 cp -a "${TARGET}" "${BACKUP_DIRECTORY}/${DESTINATION}-$(date +%Y%m%d%H%M%S)"
 
-echo "Done, "
+echo "Done."
